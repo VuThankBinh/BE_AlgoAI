@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="header">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlgoAI</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/css/loading.css}">
+    
+    <!-- JavaScript -->
+    <script th:src="@{/js/loading.js}"></script>
+    <script th:src="@{/js/auth.js}"></script>
+</head>
+<body>
+    <!-- Header content -->
+    <div class="user-info">
+        <span id="user-name"></span>
+        <span id="user-role"></span>
+    </div>
+</body>
+</html> 

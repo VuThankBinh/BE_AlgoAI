@@ -10,4 +10,5 @@ public class LoginReponseDTO {
     private String email;
     private String avatar;
     private String id;
+    private String sessionId;
 }
