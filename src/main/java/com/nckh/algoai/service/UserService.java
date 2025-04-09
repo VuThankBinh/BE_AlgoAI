@@ -121,10 +121,10 @@ public class UserService {
             throw new NotFoundException("Không tìm thấy người dùng với email: " + resetPasswordDTO.getEmail());
         }
         
-        // Kiểm tra OTP
-        if (!otpService.validateOtp(resetPasswordDTO.getEmail(), resetPasswordDTO.getOtp())) {
-            throw new ValidationException("OTP không hợp lệ hoặc đã hết hạn");
-        }
+        // // Kiểm tra OTP
+        // if (!otpService.validateOtp(resetPasswordDTO.getEmail(), resetPasswordDTO.getOtp())) {
+        //     throw new ValidationException("OTP không hợp lệ hoặc đã hết hạn");
+        // }
         
         // Kiểm tra mật khẩu mới và xác nhận mật khẩu mới
         if (!resetPasswordDTO.getMatKhauMoi().equals(resetPasswordDTO.getXacNhanMatKhauMoi())) {

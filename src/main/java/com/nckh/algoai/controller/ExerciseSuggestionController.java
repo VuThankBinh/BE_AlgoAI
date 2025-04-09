@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/exercise-suggestion")
-@Tag(name = "Exercise Suggestion API", description = "API for suggesting programming exercises and quiz questions")
+@Tag(name = "API tạo bài tập bằng AI", description = "API tạo bài tập bằng AI")
 public class ExerciseSuggestionController {
 
     @Autowired
@@ -19,8 +19,8 @@ public class ExerciseSuggestionController {
 
     @PostMapping("/suggest")
     @Operation(
-        summary = "Suggest exercises",
-        description = "Generate programming exercises and quiz questions based on topic and difficulty level"
+        summary = "Tạo bài tập bằng AI",
+        description = "Tạo bài tập bằng AI"
     )
     public ResponseEntity<ExerciseSuggestionResponseDTO> suggestExercises(
             @RequestBody ExerciseSuggestionRequestDTO request) {

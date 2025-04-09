@@ -20,7 +20,7 @@ public class UserSessionEntity {
     @Column(name = "session_id", unique = true)
     private String sessionId;
     
-    @Column(name = "jwt_token")
+    @Column(name = "jwt_token", columnDefinition = "nvarchar(max)")
     private String jwtToken;
     
     @Column(name = "created_at")

@@ -3,7 +3,6 @@ package com.nckh.algoai.controller;
 import com.nckh.algoai.dto.ChatQuestionDTO;
 import com.nckh.algoai.service.GeminiService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -13,5 +13,12 @@ public class BaiHocTienDoDTO {
     private String linkYoutube;
     private String linkMoTa;
     private String trangThai;
+    private String anhBaiHoc;
     private LocalDateTime lanCuoiTruyCap;
+    private Boolean daLamQuiz;
+    private Integer diemQuiz;
+    private String mucDoQuiz;
+    private Boolean daLamCode;
+    private Integer diemCode;
+    private String mucDoCode;
 } 

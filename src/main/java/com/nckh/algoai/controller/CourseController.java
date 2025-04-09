@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nckh.algoai.entity.KhoaHocEntity;
 import com.nckh.algoai.service.CourseService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/api/courses")
+@Tag(name = "Course Controller", description = "API get danh sách khóa học")
 public class CourseController {
 
     @Autowired

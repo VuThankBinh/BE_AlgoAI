@@ -8,6 +8,6 @@ public class TienDoDTO {
     private Integer id;
     private Integer idNguoiDung;
     private Integer idBaiHoc;
-    private String trangThai;
+    private String trangThai;   
     private LocalDateTime lanCuoiTruyCap;
 } 

@@ -11,4 +11,5 @@ public class BaiHocDTO {
     private String mucDo;
     private String linkYoutube;
     private String linkMoTa;
+    private String anhBaiHoc;
 }

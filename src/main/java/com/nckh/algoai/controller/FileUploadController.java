@@ -16,9 +16,10 @@ import java.nio.file.Paths;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-
+import io.swagger.v3.oas.annotations.tags.Tag;
 @RestController
 @RequestMapping("/api/upload")
+@Tag(name = "Upload file", description = "API upload file")
 public class FileUploadController {
     private static final String UPLOAD_DIR = System.getProperty("user.dir") + "/uploads/images/";
 

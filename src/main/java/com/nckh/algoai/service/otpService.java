@@ -39,6 +39,10 @@ public class otpService {
                 throw new RuntimeException("System is temporarily unavailable, please try again later");
             }
 
+            // Xóa OTP cũ nếu có
+            redisTemplate.delete(email);
+            log.info("Deleted old OTP for email: {}", email);
+
             // Send email before
             emailService.sendOtpEmail(email, otp);
             log.info("Sent OTP email successfully");
@@ -73,6 +77,10 @@ public class otpService {
                     log.error("Can not connect to Redis server");
                     throw new RuntimeException("System is temporarily unavailable, please try again later");
                 }
+
+                // Xóa OTP cũ nếu có
+                redisTemplate.delete(email);
+                log.info("Deleted old OTP for email: {}", email);
     
                 // Send email before
                 emailService.sendOtpEmail(email, otp);

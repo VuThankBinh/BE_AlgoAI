@@ -165,13 +165,10 @@ public class SessionController {
     @Operation(summary = "Kiểm tra trạng thái session và token", description = "Kiểm tra xem session và token có còn hợp lệ không")
     @ApiResponse(responseCode = "200", description = "Kiểm tra thành công")
     @ApiResponse(responseCode = "401", description = "Session hoặc token không hợp lệ")
-    @GetMapping("/validate")
+    @PostMapping("/validate")
     public ResponseEntity<ResponseObject<Boolean>> validateSessionAndToken(
             @RequestBody ValidateSessionRequest request) {
         try {
-
-            
-
             // Kiểm tra session và token
             boolean isSessionValid = userSessionService.validateSession(request.getSessionId());
             boolean isTokenValid = userSessionService.validateToken(request.getToken());

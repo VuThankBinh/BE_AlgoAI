@@ -9,4 +9,5 @@ import java.util.List;
 public interface NopBaiRepository extends JpaRepository<NopBaiEntity, Integer> {
     List<NopBaiEntity> findByIdNguoiDungAndIdBaiHoc(Integer idNguoiDung, Integer idBaiHoc);
     List<NopBaiEntity> findByIdNguoiDungAndLoaiBaiTap(Integer idNguoiDung, String loaiBaiTap);
+    List<NopBaiEntity> findByIdNguoiDungAndIdBaiHocAndLoaiBaiTap(Integer idNguoiDung, Integer idBaiHoc, String loaiBaiTap);
 } 

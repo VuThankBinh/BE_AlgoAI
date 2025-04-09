@@ -7,9 +7,11 @@ import org.springframework.web.bind.annotation.*;
 import com.nckh.algoai.service.GeminiCodeGradingService;
 import com.nckh.algoai.dto.CodeGradingRequestDTO;
 import com.nckh.algoai.dto.CodeGradingResponseDTO;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/api/code-grading")
+@Tag(name = "Code Grading Controller", description = "API chấm điểm code")
 public class CodeGradingController {
 
     @Autowired

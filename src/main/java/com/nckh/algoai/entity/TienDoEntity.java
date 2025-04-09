@@ -24,6 +24,7 @@ public class TienDoEntity {
     @Column(name = "lan_cuoi_truy_cap")
     private LocalDateTime lanCuoiTruyCap;
 
+
     @ManyToOne
     @JoinColumn(name = "id_nguoi_dung", insertable = false, updatable = false)
     private NguoiDungEntity nguoiDung;

@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nckh.algoai.dto.BaiTapCodeDTO;
 import com.nckh.algoai.service.BaiTapCodeService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/api/bai-tap-code")
+@Tag(name = "Bài tập code", description = "API get bài tập code theo mức độ")
 public class BaiTapCodeController {
 
     @Autowired

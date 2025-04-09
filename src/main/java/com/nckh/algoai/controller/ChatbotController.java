@@ -7,10 +7,12 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
-
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import java.util.UUID;
 
 @Controller
+@Tag(name = "Chatbot", description = "API chat với bot")
 public class ChatbotController {
 
     private final ChatbotService chatbotService;
@@ -21,6 +23,7 @@ public class ChatbotController {
 
     @MessageMapping("/chat.sendMessage")
     @SendTo("/topic/public")
+    @Operation(summary = "Gửi tin nhắn cho bot", description = "Gửi tin nhắn cho bot và nhận phản hồi từ bot")
     public ChatMessage sendMessage(@Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
         // Lấy sessionId từ header
         String sessionId = (String) headerAccessor.getSessionAttributes().get("sessionId");
@@ -36,6 +39,7 @@ public class ChatbotController {
 
     @MessageMapping("/chat.addUser")
     @SendTo("/topic/public")
+    @Operation(summary = "Thêm người dùng vào WebSocket session", description = "Thêm người dùng vào WebSocket session và tạo sessionId mới")
     public ChatMessage addUser(@Payload ChatMessage chatMessage, 
                              SimpMessageHeaderAccessor headerAccessor) {
         // Thêm người dùng vào WebSocket session

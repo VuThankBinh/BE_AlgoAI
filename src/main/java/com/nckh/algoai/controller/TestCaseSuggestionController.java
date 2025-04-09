@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/test-case-suggestion")
-@Tag(name = "Test Case Suggestion API", description = "API for suggesting test cases based on exercise description")
+@Tag(name = "API tạo test case", description = "API tạo test case")
 public class TestCaseSuggestionController {
 
     @Autowired
@@ -19,8 +19,8 @@ public class TestCaseSuggestionController {
 
     @PostMapping("/suggest")
     @Operation(
-        summary = "Suggest test cases",
-        description = "Generate test cases based on exercise description"
+        summary = "Tạo test case",
+        description = "Tạo test case"
     )
     public ResponseEntity<TestCaseSuggestionResponseDTO> suggestTestCases(
             @RequestBody TestCaseSuggestionRequestDTO request) {

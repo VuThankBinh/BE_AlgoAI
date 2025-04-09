@@ -29,6 +29,9 @@ public class BaiHocEntity {
     @Column(name = "link_mo_ta")
     private String linkMoTa;
 
+    @Column(name = "anh_bai_hoc")
+    private String anhBaiHoc;
+
     @ManyToOne
     @JoinColumn(name = "id_khoa_hoc", insertable = false, updatable = false)
     private KhoaHocEntity course;
