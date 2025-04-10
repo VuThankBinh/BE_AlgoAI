@@ -17,7 +17,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(sessionInterceptor)
                 // .addPathPatterns("/api/**") // Áp dụng cho tất cả các API
-                .excludePathPatterns("/api/auth/login", "/api/auth/register", "/api/upload/**","uploads/images/**","/api/**"); // Loại trừ các API đăng nhập, đăng ký
+                .excludePathPatterns("/api/auth/login", "/api/auth/register", "/upload/images/**","/api/**"); // Loại trừ các API đăng nhập, đăng ký
     }
 
     @Override

@@ -10,6 +10,8 @@ import com.nckh.algoai.dto.BaiTapCodeNopBaiDTO;
 import com.nckh.algoai.dto.BaiTapQuizNopBaiDTO;
 import com.nckh.algoai.entity.NopBaiEntity;
 import com.nckh.algoai.service.NopBaiService;
+import com.nckh.algoai.dto.ResponseObject;
+import com.nckh.algoai.exception.ValidationException;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -114,5 +116,65 @@ public class NopBaiController {
             @RequestParam("mucDo") String mucDo) {
         List<BaiTapQuizNopBaiDTO> danhSachBaiNop = nopBaiService.getBaiTapQuizTheoMucDoCoDeBai(idNguoiDung, idBaiHoc, mucDo);
         return ResponseEntity.ok(danhSachBaiNop);
+    }
+
+    @PutMapping("/code")
+    public ResponseEntity<ResponseObject> suaBaiNopCode(
+            @RequestParam Integer idNguoiDung,
+            @RequestParam Integer idBaiHoc,
+            @RequestBody NopBaiTapCodeDTO nopBaiTapCodeDTO) {
+        try {
+            NopBaiEntity baiNop = nopBaiService.suaBaiNopCode(idNguoiDung, idBaiHoc, nopBaiTapCodeDTO);
+            return ResponseEntity.ok(new ResponseObject("success", "Sửa bài nộp thành công", baiNop));
+        } catch (ValidationException e) {
+            return ResponseEntity.badRequest().body(new ResponseObject("error", e.getMessage(), null));
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(new ResponseObject("error", "Lỗi khi sửa bài nộp", null));
+        }
+    }
+
+    @PutMapping("/quiz")
+    public ResponseEntity<ResponseObject> suaBaiNopQuiz(
+            @RequestParam Integer idNguoiDung,
+            @RequestParam Integer idBaiHoc,
+            @RequestBody NopBaiTapQuizDTO nopBaiTapQuizDTO) {
+        try {
+            NopBaiEntity baiNop = nopBaiService.suaBaiNopQuiz(idNguoiDung, idBaiHoc, nopBaiTapQuizDTO);
+            return ResponseEntity.ok(new ResponseObject("success", "Sửa bài nộp thành công", baiNop));
+        } catch (ValidationException e) {
+            return ResponseEntity.badRequest().body(new ResponseObject("error", e.getMessage(), null));
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(new ResponseObject("error", "Lỗi khi sửa bài nộp", null));
+        }
+    }
+
+    @GetMapping("/kiem-tra-da-lam-quiz")
+    @Operation(summary = "Kiểm tra đã làm quiz", description = "Kiểm tra người dùng đã làm quiz chưa")
+    public ResponseEntity<ResponseObject> kiemTraDaLamQuiz(
+            @RequestParam("idNguoiDung") Integer idNguoiDung,
+            @RequestParam("idBaiHoc") Integer idBaiHoc) {
+        try {
+            boolean daLamQuiz = nopBaiService.kiemTraDaLamQuiz(idNguoiDung, idBaiHoc);
+            return ResponseEntity.ok(new ResponseObject("success", "Kiểm tra thành công", daLamQuiz));
+        } catch (ValidationException e) {
+            return ResponseEntity.badRequest().body(new ResponseObject("error", e.getMessage(), null));
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(new ResponseObject("error", "Lỗi khi kiểm tra", null));
+        }
+    }
+
+    @GetMapping("/kiem-tra-da-lam-code")
+    @Operation(summary = "Kiểm tra đã làm code", description = "Kiểm tra người dùng đã làm code chưa")
+    public ResponseEntity<ResponseObject> kiemTraDaLamCode(
+            @RequestParam("idNguoiDung") Integer idNguoiDung,
+            @RequestParam("idBaiHoc") Integer idBaiHoc) {
+        try {
+            boolean daLamCode = nopBaiService.kiemTraDaLamCode(idNguoiDung, idBaiHoc);
+            return ResponseEntity.ok(new ResponseObject("success", "Kiểm tra thành công", daLamCode));
+        } catch (ValidationException e) {
+            return ResponseEntity.badRequest().body(new ResponseObject("error", e.getMessage(), null));
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(new ResponseObject("error", "Lỗi khi kiểm tra", null));
+        }
     }
 } 

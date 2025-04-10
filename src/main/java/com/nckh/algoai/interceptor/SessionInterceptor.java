@@ -27,7 +27,10 @@ public class SessionInterceptor implements HandlerInterceptor {
         "/api/auth/register",
         "/api/auth/refresh-token",
         "/swagger-ui",
-        "/v3/api-docs"
+        "/v3/api-docs",
+        "/api/uploads",
+        "/uploads/images",
+        "/api"
     );
 
     @Autowired

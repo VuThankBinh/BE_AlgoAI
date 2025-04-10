@@ -34,6 +34,16 @@ public class TienDoService {
     private NopBaiRepository nopBaiRepository;
 
     public TienDoEntity capNhatTienDo(Integer idNguoiDung, Integer idBaiHoc) {
+        // Kiểm tra người dùng có tồn tại không
+        if (!userRepository.existsById(idNguoiDung)) {
+            throw new ValidationException("Người dùng không tồn tại");
+        }
+
+        // Kiểm tra bài học có tồn tại không
+        if (!baiHocRepository.existsById(idBaiHoc)) {
+            throw new ValidationException("Bài học không tồn tại");
+        }
+
         Optional<TienDoEntity> tienDoOpt = tienDoRepository.findByIdNguoiDungAndIdBaiHoc(idNguoiDung, idBaiHoc);
 
         if (tienDoOpt.isEmpty()) {

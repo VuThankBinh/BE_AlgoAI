@@ -40,7 +40,8 @@ public class SecurityConfig {
                 .requestMatchers("/api/otp/**").permitAll()
                 .requestMatchers("/swagger-ui/**").permitAll()
                 .requestMatchers("/v3/api-docs/**").permitAll()
-                .requestMatchers("/uploads/**").permitAll()
+                .requestMatchers("/uploads/images/**").permitAll()
+                .requestMatchers("/api/uploads/**").permitAll()
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session
