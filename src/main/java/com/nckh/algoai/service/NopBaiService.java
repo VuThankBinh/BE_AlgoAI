@@ -340,6 +340,7 @@ public class NopBaiService {
                 dto.setDapAnNguoiDung(baiNop.getDapAn());
                 dto.setDiem(baiNop.getDiem());
                 dto.setNgayNop(baiNop.getNgayNop());
+                dto.setIdNopBai(baiNop.getId());
                 ketQua.add(dto);
             }
         }
@@ -423,9 +424,9 @@ public class NopBaiService {
      * @return Bài nộp đã được sửa
      */
     public NopBaiEntity suaBaiNopCode(Integer idNguoiDung, Integer idBaiHoc, NopBaiTapCodeDTO nopBaiTapCodeDTO) {
-        // Tìm bài nộp theo idNguoiDung và idBaiHoc
-        List<NopBaiEntity> baiNops = nopBaiRepository.findByIdNguoiDungAndIdBaiHocAndLoaiBaiTap(
-            idNguoiDung, idBaiHoc, "code");
+        // Tìm bài nộp theo idNguoiDung, idBaiHoc và mucDo
+        List<NopBaiEntity> baiNops = nopBaiRepository.findByIdNguoiDungAndIdBaiHocAndLoaiBaiTapAndMucDo(
+            idNguoiDung, idBaiHoc, "code", nopBaiTapCodeDTO.getMucDo());
         
         if (baiNops.isEmpty()) {
             throw new ValidationException("Không tìm thấy bài nộp");
@@ -434,8 +435,9 @@ public class NopBaiService {
         // Lấy bài nộp đầu tiên
         NopBaiEntity baiNop = baiNops.get(0);
 
-        // Chỉ cập nhật đáp án và thời gian nộp
+        // Cập nhật đáp án, điểm và thời gian nộp
         baiNop.setDapAn(nopBaiTapCodeDTO.getDapAn());
+        baiNop.setDiem(nopBaiTapCodeDTO.getDiem());
         baiNop.setNgayNop(LocalDateTime.now());
 
         return nopBaiRepository.save(baiNop);
@@ -448,9 +450,9 @@ public class NopBaiService {
      * @return Bài nộp đã được sửa
      */
     public NopBaiEntity suaBaiNopQuiz(Integer idNguoiDung, Integer idBaiHoc, NopBaiTapQuizDTO nopBaiTapQuizDTO) {
-        // Tìm bài nộp theo idNguoiDung và idBaiHoc
-        List<NopBaiEntity> baiNops = nopBaiRepository.findByIdNguoiDungAndIdBaiHocAndLoaiBaiTap(
-            idNguoiDung, idBaiHoc, "quiz");
+        // Tìm bài nộp theo idNguoiDung, idBaiHoc và mucDo
+        List<NopBaiEntity> baiNops = nopBaiRepository.findByIdNguoiDungAndIdBaiHocAndLoaiBaiTapAndMucDo(
+            idNguoiDung, idBaiHoc, "quiz", nopBaiTapQuizDTO.getMucDo());
         
         if (baiNops.isEmpty()) {
             throw new ValidationException("Không tìm thấy bài nộp");
@@ -459,8 +461,9 @@ public class NopBaiService {
         // Lấy bài nộp đầu tiên
         NopBaiEntity baiNop = baiNops.get(0);
 
-        // Chỉ cập nhật đáp án và thời gian nộp
+        // Cập nhật đáp án, điểm và thời gian nộp
         baiNop.setDapAn(nopBaiTapQuizDTO.getDapAn());
+        baiNop.setDiem(nopBaiTapQuizDTO.getDiem());
         baiNop.setNgayNop(LocalDateTime.now());
 
         return nopBaiRepository.save(baiNop);
@@ -520,6 +523,82 @@ public class NopBaiService {
         
         List<NopBaiEntity> baiNops = nopBaiRepository.findByIdNguoiDungAndIdBaiHocAndLoaiBaiTap(
             idNguoiDung, idBaiHoc, "code");
+        
+        return !baiNops.isEmpty();
+    }
+
+    /**
+     * Kiểm tra người dùng đã làm quiz với mức độ cụ thể chưa
+     * @param idNguoiDung ID người dùng
+     * @param idBaiHoc ID bài học
+     * @param mucDo Mức độ bài tập (co_ban, trung_binh, nang_cao)
+     * @return true nếu đã làm quiz, false nếu chưa
+     */
+    public boolean kiemTraDaLamQuizTheoMucDo(Integer idNguoiDung, Integer idBaiHoc, String mucDo) {
+        if (idNguoiDung == null) {
+            throw new ValidationException("ID người dùng không được để trống");
+        }
+        
+        if (idBaiHoc == null) {
+            throw new ValidationException("ID bài học không được để trống");
+        }
+        
+        if (mucDo == null) {
+            throw new ValidationException("Mức độ không được để trống");
+        }
+        
+        if (!mucDo.equals("co_ban") && !mucDo.equals("trung_binh") && !mucDo.equals("nang_cao")) {
+            throw new ValidationException("Mức độ không hợp lệ");
+        }
+        
+        if (userRepository.findById(idNguoiDung).isEmpty()) {
+            throw new ValidationException("Người dùng không tồn tại");
+        }
+        
+        if (baiHocRepository.findById(idBaiHoc).isEmpty()) {
+            throw new ValidationException("Bài học không tồn tại");
+        }
+        
+        List<NopBaiEntity> baiNops = nopBaiRepository.findByIdNguoiDungAndIdBaiHocAndLoaiBaiTapAndMucDo(
+            idNguoiDung, idBaiHoc, "quiz", mucDo);
+        
+        return !baiNops.isEmpty();
+    }
+
+    /**
+     * Kiểm tra người dùng đã làm code với mức độ cụ thể chưa
+     * @param idNguoiDung ID người dùng
+     * @param idBaiHoc ID bài học
+     * @param mucDo Mức độ bài tập (co_ban, trung_binh, nang_cao)
+     * @return true nếu đã làm code, false nếu chưa
+     */
+    public boolean kiemTraDaLamCodeTheoMucDo(Integer idNguoiDung, Integer idBaiHoc, String mucDo) {
+        if (idNguoiDung == null) {
+            throw new ValidationException("ID người dùng không được để trống");
+        }
+        
+        if (idBaiHoc == null) {
+            throw new ValidationException("ID bài học không được để trống");
+        }
+        
+        if (mucDo == null) {
+            throw new ValidationException("Mức độ không được để trống");
+        }
+        
+        if (!mucDo.equals("co_ban") && !mucDo.equals("trung_binh") && !mucDo.equals("nang_cao")) {
+            throw new ValidationException("Mức độ không hợp lệ");
+        }
+        
+        if (userRepository.findById(idNguoiDung).isEmpty()) {
+            throw new ValidationException("Người dùng không tồn tại");
+        }
+        
+        if (baiHocRepository.findById(idBaiHoc).isEmpty()) {
+            throw new ValidationException("Bài học không tồn tại");
+        }
+        
+        List<NopBaiEntity> baiNops = nopBaiRepository.findByIdNguoiDungAndIdBaiHocAndLoaiBaiTapAndMucDo(
+            idNguoiDung, idBaiHoc, "code", mucDo);
         
         return !baiNops.isEmpty();
     }

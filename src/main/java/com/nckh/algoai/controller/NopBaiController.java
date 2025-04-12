@@ -177,4 +177,22 @@ public class NopBaiController {
             return ResponseEntity.internalServerError().body(new ResponseObject("error", "Lỗi khi kiểm tra", null));
         }
     }
+
+    @GetMapping("/kiem-tra/quiz/theo-muc-do")
+    public ResponseEntity<Boolean> kiemTraDaLamQuizTheoMucDo(
+            @RequestParam Integer idNguoiDung,
+            @RequestParam Integer idBaiHoc,
+            @RequestParam String mucDo) {
+        boolean daLam = nopBaiService.kiemTraDaLamQuizTheoMucDo(idNguoiDung, idBaiHoc, mucDo);
+        return ResponseEntity.ok(daLam);
+    }
+
+    @GetMapping("/kiem-tra/code/theo-muc-do")
+    public ResponseEntity<Boolean> kiemTraDaLamCodeTheoMucDo(
+            @RequestParam Integer idNguoiDung,
+            @RequestParam Integer idBaiHoc,
+            @RequestParam String mucDo) {
+        boolean daLam = nopBaiService.kiemTraDaLamCodeTheoMucDo(idNguoiDung, idBaiHoc, mucDo);
+        return ResponseEntity.ok(daLam);
+    }
 } 

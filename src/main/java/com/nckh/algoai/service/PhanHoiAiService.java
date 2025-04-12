@@ -47,4 +47,24 @@ public class PhanHoiAiService {
         return phanHoiAiRepository.findByIdNopBai(idNopBai)
                 .orElseThrow(() -> new ValidationException("Không tìm thấy phản hồi AI"));
     }
+
+    public PhanHoiAiEntity suaPhanHoiAi(Integer idNopBai, PhanHoiAiDTO phanHoiAiDTO) {
+        // Kiểm tra nộp bài có tồn tại không
+        NopBaiEntity nopBai = nopBaiRepository.findById(idNopBai)
+                .orElseThrow(() -> new ValidationException("Không tìm thấy bài nộp"));
+
+        // Kiểm tra phản hồi AI có tồn tại không
+        PhanHoiAiEntity phanHoiAi = phanHoiAiRepository.findByIdNopBai(idNopBai)
+                .orElseThrow(() -> new ValidationException("Không tìm thấy phản hồi AI"));
+
+        // Cập nhật điểm cho bài nộp
+        nopBai.setDiem(phanHoiAiDTO.getDiem());
+        nopBaiRepository.save(nopBai);
+
+        // Cập nhật phản hồi AI
+        phanHoiAi.setNoiDung(phanHoiAiDTO.getNoiDung());
+        phanHoiAi.setGoiYCaiThien(phanHoiAiDTO.getGoiYCaiThien());
+
+        return phanHoiAiRepository.save(phanHoiAi);
+    }
 } 

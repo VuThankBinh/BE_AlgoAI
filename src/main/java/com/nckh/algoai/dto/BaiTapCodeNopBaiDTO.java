@@ -17,5 +17,6 @@ public class BaiTapCodeNopBaiDTO {
     private String mucDo;
     private String dapAnNguoiDung;
     private Integer diem;
+    private Integer idNopBai;
     private LocalDateTime ngayNop;
 } 
